@@ -14,9 +14,9 @@ app.get('/', (req, res) => {
 
 app.post('/', (req, res) => {
     try {
-        const { email, password } = req.body
+        const { email, password, current } = req.body
 
-        if (!email || !password) {
+        if (!email || !password || !current) {
             return res.status(401).json({
                 type: "error",
                 message: "Invalid or No Credentials",
