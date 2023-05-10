@@ -13,12 +13,26 @@ app.get('/', (req, res) => {
 })
 
 app.post('/', (req, res) => {
-    const { name, password } = req.body
+    try {
+        const { email, password } = req.body
 
-    res.status(200).json({
-        "name is": name,
-        "password is": password
-    })
+        if (!email || !password) {
+            return res.status(401).json({
+                type: "error",
+                message: "Invalid or No Credentials",
+            });
+        }
+
+        res.status(200).json({
+            type: "success",
+            message: "Logged in successfully",
+        })
+    } catch (error) {
+        res.json({
+            type: "error",
+            message: error.message,
+        })
+    }
 })
 
 const server = app.listen(PORT, () => {
